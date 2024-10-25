@@ -9,39 +9,39 @@ pipeline {
         stage('Clean and Clone Repository') {
             steps {
                 cleanWs()
-                bat 'git clone https://github.com/ranidess/docker_images_v_jenkins.git'
+                bat 'git clone https://github.com/khushiZalmi/BuildingViaJenkins.git'
             }
         }
         stage('List Files') {
             steps {
                 // List files to verify Dockerfile location
-                dir('docker_images_v_jenkins') {
+                dir('BuildingViaJenkins') {
                     bat 'dir'
                 }
             }
         }
         stage('Build') {
             steps {
-                dir('docker_images_v_jenkins') {
-                    bat 'docker build -t mca2317/2317_ak -f Dockerfile .'
+                dir('BuildingViaJenkins') {
+                    bat 'docker build -t khushizalmi2346/khushi -f Dockerfile .'
                 }
             }
         }
         stage('Login') {
             steps {
-                bat 'docker login -u "mca2317" -p "Ranisona@13" docker.io'
+                bat 'docker login -u "khushizalmi2346" -p "0920khushi" docker.io'
             }
         }
         stage('Push') {
             steps {
-                bat 'docker push mca2317/2317_ak'
+                bat 'docker push khushizalmi2346/khushi'
             }
         }
         stage('Run in Daemon Mode') {
             steps {
                 bat 'docker rm -f my_container'
                 // Running the Docker container in daemon mode
-                bat 'docker run -d --name my_container mca2317/2317_ak'
+                bat 'docker run -d --name my_container khushizalmi2346/khushi'
             }
         }
     }
